@@ -1,0 +1,134 @@
+package customer.com;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Stream;
+
+public class Customerdata {
+     private int custId;
+     private String custName;
+     private String city;
+     private double premium;
+     private Date dateOfBirth;
+     
+	public Customerdata() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Customerdata(int custId, String custName, String city, double premium, Date dateOfBirth) {
+		super();
+		this.custId = custId;
+		this.custName = custName;
+		this.city = city;
+		this.premium = premium;
+		this.dateOfBirth = dateOfBirth;
+	}
+	public int getCustId() {
+		return custId;
+	}
+	public void setCustId(int custId) {
+		this.custId = custId;
+	}
+	public String getCustName() {
+		return custName;
+	}
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public double getPremium() {
+		return premium;
+	}
+	public void setPremium(double premium) {
+		this.premium = premium;
+	}
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	@Override
+	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return "Customerdata [custId=" + custId + ", custName=" + custName + ", city=" + city + ", premium=" + premium
+				+ ", dateOfBirth=" + sdf.format(dateOfBirth) + "]";
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		List<Customerdata> customer=new ArrayList<Customerdata>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			customer.add(new Customerdata(1, "sunitha", "salem", 75000.00, sdf.parse("1990-05-23")));
+			customer.add(new Customerdata(2, "Michael", "Chennai", 60000.00, sdf.parse("1982-08-17")));
+			customer.add(new Customerdata(3, "vahs", "coimbatore", 85000.00, sdf.parse("1995-03-12")));
+			customer.add(new Customerdata(4, "suwetha", "Delhi", 95000.00, sdf.parse("1978-12-20")));
+			customer.add(new Customerdata(5, "ruban", "madurai", 62000.00, sdf.parse("1987-06-30")));
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		System.out.println("Customer List is: ");
+		customer.forEach(x -> {
+			System.out.println(x);
+		});
+		
+		
+		
+		System.out.println("*****************************************");
+		Stream<Customerdata>obj=customer.stream().filter(x ->x.getPremium()>=80000);
+		System.out.println("Customer premium > 80000: ");
+		obj.forEach(x -> {
+			System.out.println(x);
+		});
+		
+		
+		System.out.println("*****************************************");
+		System.out.println("Enter Customer City:");
+		Scanner sc=new Scanner(System.in);
+		String city=sc.next();
+		customer.stream().filter(x -> x.getCity().equals(city)).forEach(y -> {
+			System.out.println(y);
+		});
+		
+		
+		
+		System.out.println("*****************************************");
+		System.out.println("Sorted by DateOfBirth");
+		
+		Collections.sort(customer,(e1,e2) ->{
+	    	 return e1.getDateOfBirth().compareTo(e2.getDateOfBirth());
+	     });
+	  
+	     customer.forEach(x ->{
+	    	 System.out.println(x);
+	     });
+		
+	     
+	     
+	    System.out.println("*****************************************");
+		System.out.println("Sorted by Customer Name: ");
+		
+		 Collections.sort(customer,(e1,e2) ->{
+	    	 return e1.getCustName().compareTo(e2.getCustName());
+	     });
+	  
+	     customer.forEach(x ->{
+	    	 System.out.println(x);
+	     });
+	  
+	}  
+     
+}
